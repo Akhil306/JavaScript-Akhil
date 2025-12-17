@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Boot + Apache Camel App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .emoji {
+            font-size: 3em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .endpoint {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            transition: transform 0.2s;
+        }
+
+        .endpoint:hover {
+            transform: translateX(5px);
+            border-color: #667eea;
+        }
+
+        .endpoint-url {
+            color: #667eea;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+        }
+
+        .endpoint-desc {
+            color: #666;
+            margin-top: 5px;
+            font-size: 0.9em;
+        }
+
+        .test-section {
+            margin-top: 30px;
+        }
+
+        .input-group {
+            margin: 15px 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .response {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8f5e9;
+            border-radius: 8px;
+            border-left: 4px solid #4caf50;
+            display: none;
+        }
+
+        .response.show {
+            display: block;
+        }
+
+        .response-title {
+            font-weight: bold;
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+
+        .response-body {
+            color: #333;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .info-box {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .info-box strong {
+            color: #856404;
+        }
+
+        a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="emoji">🚀 🐫 ☕</div>
+        <h1>Welcome!</h1>
+        <p class="subtitle">Spring Boot + Apache Camel Web Application</p>
+
+        <div class="info-box">
+            <strong>🎉 Your application is running successfully!</strong>
+            <p style="margin-top: 10px;">This is a beginner-friendly example demonstrating the integration of Spring Boot and Apache Camel.</p>
+        </div>
+
+        <div class="section">
+            <h2>📍 Available Endpoints</h2>
+            
+            <div class="endpoint">
+                <div class="endpoint-url">GET /api/hello</div>
+                <div class="endpoint-desc">Simple greeting from Apache Camel route</div>
+            </div>
+
+            <div class="endpoint">
+                <div class="endpoint-url">GET /api/process?message=YourMessage</div>
+                <div class="endpoint-desc">Process and transform a message using Camel</div>
+            </div>
+
+            <div class="endpoint">
+                <div class="endpoint-url">POST /api/process</div>
+                <div class="endpoint-desc">Process a message sent in request body</div>
+            </div>
+
+            <div class="endpoint">
+                <div class="endpoint-url">GET /api/route?message=urgent%20task</div>
+                <div class="endpoint-desc">Content-based routing example (try: urgent, info, or any word)</div>
+            </div>
+
+            <div class="endpoint">
+                <div class="endpoint-url">GET /api/info</div>
+                <div class="endpoint-desc">Get application information in JSON format</div>
+            </div>
+        </div>
+
+        <div class="section test-section">
+            <h2>🧪 Test the API</h2>
+            
+            <div class="input-group">
+                <label for="messageInput">Enter a message:</label>
+                <input type="text" id="messageInput" placeholder="Type your message here..." value="Hello Camel!">
+            </div>
+
+            <button onclick="testGreeting()">Test Greeting</button>
+            <button onclick="testProcess()">Test Process</button>
+            <button onclick="testRoute('urgent')">Test Urgent Route</button>
+            <button onclick="testRoute('info')">Test Info Route</button>
+            <button onclick="testInfo()">Get App Info</button>
+
+            <div id="response" class="response">
+                <div class="response-title">Response:</div>
+                <div id="responseBody" class="response-body"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📚 Quick Guide</h2>
+            <p><strong>What is Spring Boot?</strong></p>
+            <p style="margin: 10px 0;">Spring Boot is a framework that makes it easy to create Java applications with minimal configuration.</p>
+            
+            <p style="margin-top: 20px;"><strong>What is Apache Camel?</strong></p>
+            <p style="margin: 10px 0;">Apache Camel is an integration framework that helps you route and process messages between different systems.</p>
+            
+            <p style="margin-top: 20px;"><strong>How do they work together?</strong></p>
+            <p style="margin: 10px 0;">Spring Boot provides the web server and REST endpoints, while Apache Camel handles message routing and transformation in the background.</p>
+        </div>
+    </div>
+
+    <script>
+        const responseDiv = document.getElementById('response');
+        const responseBody = document.getElementById('responseBody');
+
+        function showResponse(data) {
+            responseBody.textContent = typeof data === 'object' ? JSON.stringify(data, null, 2) : data;
+            responseDiv.classList.add('show');
+        }
+
+        function showError(error) {
+            responseBody.textContent = 'Error: ' + error;
+            responseDiv.classList.add('show');
+        }
+
+        async function testGreeting() {
+            try {
+                const response = await fetch('/api/hello');
+                const data = await response.text();
+                showResponse(data);
+            } catch (error) {
+                showError(error.message);
+            }
+        }
+
+        async function testProcess() {
+            const message = document.getElementById('messageInput').value;
+            try {
+                const response = await fetch(`/api/process?message=${encodeURIComponent(message)}`);
+                const data = await response.text();
+                showResponse(data);
+            } catch (error) {
+                showError(error.message);
+            }
+        }
+
+        async function testRoute(type) {
+            const message = document.getElementById('messageInput').value;
+            const routeMessage = `${type} ${message}`;
+            try {
+                const response = await fetch(`/api/route?message=${encodeURIComponent(routeMessage)}`);
+                const data = await response.text();
+                showResponse(data);
+            } catch (error) {
+                showError(error.message);
+            }
+        }
+
+        async function testInfo() {
+            try {
+                const response = await fetch('/api/info');
+                const data = await response.json();
+                showResponse(data);
+            } catch (error) {
+                showError(error.message);
+            }
+        }
+    </script>
+</body>
+</html>
