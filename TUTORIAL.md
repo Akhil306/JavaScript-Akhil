@@ -86,7 +86,7 @@ Apache Camel is an integration framework:
 
 1. **Navigate to the project directory:**
    ```bash
-   cd /path/to/JavaScript-Akhil
+   cd /path/to/springboot-camel-app
    ```
 
 2. **Run the application:**

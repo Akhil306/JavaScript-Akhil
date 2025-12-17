@@ -18,7 +18,7 @@
 
 ### Step 1: Navigate to Project Directory
 ```bash
-cd /path/to/JavaScript-Akhil
+cd /path/to/springboot-camel-app
 ```
 
 ### Step 2: Build the Project (First Time)
